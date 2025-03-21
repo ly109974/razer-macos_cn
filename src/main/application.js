@@ -267,7 +267,7 @@ export class Application {
         const that = this;
         Menu.buildFromTemplate([
           {
-            label: 'Inspect element',
+            label: '检查元素',
             click() {
               that.browserWindow.inspectElement(props.x, props.y);
             },

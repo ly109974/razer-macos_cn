@@ -37,7 +37,7 @@ export class ViewStateSettings extends React.Component {
 
   getOptionsWithNull(options) {
     return [{
-      value: null, label: '--- Default: do nothing ---'
+      value: null, label: '--- 默认值：不执行任何---'
     }].concat(options);
   }
 
@@ -59,7 +59,7 @@ export class ViewStateSettings extends React.Component {
 
   selectionChange(item, actionObject) {
     if(actionObject.action === 'clear') {
-      if(window.confirm('Do you really want to remove state "'+this.state.selection.label+'"?')) {
+      if(window.confirm('是否确实要删除状态 "'+this.state.selection.label+'"?')) {
         const toDeleteItem = this.state.selection.value;
         ipcRenderer.send('state-settings-remove', toDeleteItem);
         const newOptions = this.state.options.filter(o => o.value !== toDeleteItem);

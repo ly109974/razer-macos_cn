@@ -27,15 +27,15 @@ function patch(deviceMenu, application) {
 function getMainMenu(application) {
   return [
     {
-      label: 'Refresh Device List',
+      label: '刷新设备列表',
       click() {
         application.refreshTray(true);
       },
     },
     {
-      label: 'Clear all settings',
+      label: '清除所有设置',
       click() {
-        application.showConfirm("Really clear all settings?").then(result => {
+        application.showConfirm("确定清除所有设置吗？").then(result => {
           if(result.response === 0) {
             return application.razerApplication.settingsManager.clearAll();
           } else {
@@ -47,7 +47,7 @@ function getMainMenu(application) {
       }
     },
     {
-      label: 'State manager',
+      label: '状态管理器',
       click() {
         application.showView({
           mode: 'state',
@@ -57,12 +57,12 @@ function getMainMenu(application) {
     },
     { type: 'separator' },
     {
-      label: 'All Devices',
+      label: '所有设备',
       enabled: false,
     },
     { type: 'separator' },
     {
-      label: 'None',
+      label: '无效果',
       click() {
         application.razerApplication.deviceManager.activeRazerDevices.forEach(device => {
           device.setModeNone();
@@ -70,10 +70,10 @@ function getMainMenu(application) {
       },
     },
     {
-      label: 'Static',
+      label: '静态效果',
       submenu: [
         {
-          label: 'Custom',
+          label: '自定义',
           click() {
             application.razerApplication.deviceManager.activeRazerDevices.forEach(device => {
               device.setModeStatic(Object.values(device.settings.customColor1.rgb).slice(0,3));
@@ -81,7 +81,7 @@ function getMainMenu(application) {
           },
         },
         {
-          label: 'Red',
+          label: '红色',
           click() {
             application.razerApplication.deviceManager.activeRazerDevices.forEach(device => {
               device.setModeStatic([0xff, 0, 0]);
@@ -89,7 +89,7 @@ function getMainMenu(application) {
           },
         },
         {
-          label: 'Green',
+          label: '绿色',
           click() {
             application.razerApplication.deviceManager.activeRazerDevices.forEach(device => {
               device.setModeStatic([0, 0xff, 0]);
@@ -97,7 +97,7 @@ function getMainMenu(application) {
           },
         },
         {
-          label: 'Blue',
+          label: '蓝色',
           click() {
             application.razerApplication.deviceManager.activeRazerDevices.forEach(device => {
               device.setModeStatic([0, 0, 0xff]);
@@ -107,11 +107,11 @@ function getMainMenu(application) {
       ],
     },
     {
-      label: 'Spectrum',
+      label: '光谱效果',
       submenu: [
         {
-          label: 'By device',
-          toolTip: 'Runs spectrum mode for all attached devices',
+          label: '按设备',
+          toolTip: '为所有连接的设备运行光谱模式',
           click() {
             application.razerApplication.deviceManager.activeRazerDevices.forEach(device => {
               device.setSpectrum();
@@ -119,8 +119,8 @@ function getMainMenu(application) {
           }
         },
         {
-          label: 'By animation',
-          toolTip: 'Starts timed animation which changes color for all attached devices',
+          label: '按动画',
+          toolTip: '启动定时动画，为所有连接的设备更改颜色',
           click() {
             application.razerApplication.spectrumAnimation.start();
           }
@@ -133,27 +133,27 @@ function getMainMenu(application) {
 function getCustomColorsCycleMenu(application) {
   const cccMenu = [
     {
-      label: 'Start Cycle',
+      label: '开始循环',
       click() {
         application.razerApplication.cycleAnimation.start();
       },
     },
     {
-      label: 'Stop Cycle',
+      label: '停止循环',
       click() {
         application.razerApplication.cycleAnimation.stop();
       },
     },
     { type: 'separator' },
     {
-      label: 'Add Color',
+      label: '添加颜色',
       click() {
         application.razerApplication.cycleAnimation.addColor({ r: 0x00, g: 0xff, b: 0x00 });
         application.refreshTray();
       },
     },
     {
-      label: 'Reset Colors',
+      label: '重置颜色',
       click() {
         application.razerApplication.cycleAnimation.setColor([
           { r: 0xff, g: 0x00, b: 0x00 },
@@ -168,7 +168,7 @@ function getCustomColorsCycleMenu(application) {
 
   const colorItems = application.razerApplication.cycleAnimation.getAllColors().map((color, index) => {
     return {
-      label: 'Color ' + (index + 1),
+      label: '颜色 ' + (index + 1),
       click: () => {
         application.showView({
           mode: 'color',
@@ -180,7 +180,7 @@ function getCustomColorsCycleMenu(application) {
   });
 
   return [{
-    label: 'Cycle',
+    label: '循环',
     submenu: cccMenu.concat(colorItems)
   }]
 }
@@ -193,16 +193,16 @@ function getMainMenuBottom(application) {
   return [
     { type: 'separator' },
     {
-      label: 'About',
+      label: '关于',
       submenu: [
         {
-          label: `Version: ${application.APP_VERSION}`,
+          label: `版本: ${application.APP_VERSION}`,
           enabled: false,
         },
       ],
     },
     {
-      label: 'Quit',
+      label: '退出',
       click() {
         application.quit();
       },

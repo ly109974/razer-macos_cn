@@ -94,7 +94,7 @@ function getFeatureMenuFor(application, device, feature) {
 
 function getFeatureBreath(application, device, feature) {
   return {
-    label: 'Breathe',
+    label: '呼吸效果',
     click() {
       // random
       device.setBreathe([0]);
@@ -109,20 +109,20 @@ function getFeatureBrightness(application, device, feature) {
   };
 
   return {
-    label: 'Brightness',
+    label: '亮度',
     submenu: [
       {
-        label: `Brightness: ${device.getBrightness()}%`,
+        label: `亮度: ${device.getBrightness()}%`,
       },
       { type: 'separator' },
       {
-        label: 'Set to 0%',
+        label: '设置为 0%',
         click() {
           updateBrightness(0);
         },
       },
       {
-        label: 'Set to 100%',
+        label: '设置为 100%',
         click() {
           updateBrightness(100);
         },
@@ -133,7 +133,7 @@ function getFeatureBrightness(application, device, feature) {
 
 function getFeatureNone(application, device, feature) {
   return {
-    label: 'None',
+    label: '无效果',
     click() {
       device.setModeNone();
     },
@@ -141,28 +141,27 @@ function getFeatureNone(application, device, feature) {
 }
 
 function getFeatureOldMouseEffect(application, device, feature) {
-
   const submenu = [
     feature.configuration.enabledStatic ? {
-      label: 'Static',
+      label: '静态',
       click() {
         device.setLogoLEDEffect('static');
       },
     } : null,
     feature.configuration.enabledBlinking ? {
-      label: 'Blinking',
+      label: '闪烁',
       click() {
         device.setLogoLEDEffect('blinking');
       },
     } : null,
     feature.configuration.enabledPulsate ? {
-      label: 'Pulsate',
+      label: '脉动',
       click() {
         device.setLogoLEDEffect('pulsate');
       },
     } : null,
     feature.configuration.enabledScroll ? {
-      label: 'Scroll',
+      label: '滚动',
       click() {
         device.setLogoLEDEffect('scroll');
       },
@@ -170,7 +169,7 @@ function getFeatureOldMouseEffect(application, device, feature) {
   ];
 
   return {
-    label: 'Older model effects',
+    label: '旧型号效果',
     submenu: submenu.filter(s => s !== null),
   };
 }
@@ -185,22 +184,20 @@ function getFeatureReactive(application, device, feature) {
     };
   };
   return {
-    label: 'Reactive',
+    label: '反应效果',
     submenu: [
-      singleItem('Custom color', [3, device.settings.customColor1.rgb.r, device.settings.customColor1.rgb.g, device.settings.customColor1.rgb.b]),
-      singleItem('Red', [3, 0xff, 0, 0]),
-      singleItem('Green', [3, 0, 0xff, 0]),
-      singleItem('Blue', [3, 0, 0, 0xff]),
+      singleItem('自定义颜色', [3, device.settings.customColor1.rgb.r, device.settings.customColor1.rgb.g, device.settings.customColor1.rgb.b]),
+      singleItem('红色', [3, 0xff, 0, 0]),
+      singleItem('绿色', [3, 0, 0xff, 0]),
+      singleItem('蓝色', [3, 0, 0, 0xff]),
     ],
   };
 }
 
 function getFeatureRipple(application, device, feature) {
-
   if(feature.configuration == null || feature.configuration.rows === -1 ||  feature.configuration.cols === -1) {
     return {
-      // device missing rows, cols config
-      label: 'Ripple',
+      label: '涟漪效果',
       enabled: false
     };
   }
@@ -215,26 +212,24 @@ function getFeatureRipple(application, device, feature) {
   };
 
   return {
-    label: 'Ripple',
+    label: '涟漪效果',
     submenu: [
-      singleItem('Custom color', Object.values(device.settings.customColor1.rgb).slice(0, 3)),
-      singleItem('Custom dual color',
+      singleItem('自定义颜色', Object.values(device.settings.customColor1.rgb).slice(0, 3)),
+      singleItem('自定义双色',
         Object.values(device.settings.customColor1.rgb).slice(0, 3),
         Object.values(device.settings.customColor2.rgb).slice(0, 3),
       ),
-      singleItem('Red', [0xff, 0, 0]),
-      singleItem('Green', [0, 0xff, 0]),
-      singleItem('Blue', [0, 0, 0xff]),
+      singleItem('红色', [0xff, 0, 0]),
+      singleItem('绿色', [0, 0xff, 0]),
+      singleItem('蓝色', [0, 0, 0xff]),
     ],
   };
 }
 
 function getFeatureWheel(application, device, feature) {
-
   if(feature.configuration == null || feature.configuration.rows === -1 ||  feature.configuration.cols === -1) {
     return {
-      // device missing rows, cols config
-      label: 'Wheel',
+      label: '轮盘效果',
       enabled: false
     };
   }
@@ -249,18 +244,18 @@ function getFeatureWheel(application, device, feature) {
   };
 
   return {
-    label: 'Wheel',
+    label: '轮盘效果',
     submenu: [
-      singleItem('Slow Speed', 3),
-      singleItem('Medium Speed', 2),
-      singleItem('Fast Speed', 1),
+      singleItem('慢速', 3),
+      singleItem('中速', 2),
+      singleItem('快速', 1),
     ],
   };
 }
 
 function getFeatureSpectrum(application, device, feature) {
   return {
-    label: 'Spectrum',
+    label: '光谱效果',
     click() {
       device.setSpectrum();
     },
@@ -279,62 +274,61 @@ function getFeatureStarlight(application, device, feature) {
 
   const menuFor = (colors) => {
     return [
-      singleItem('Slow Speed', 3, colors),
-      singleItem('Medium Speed', 2, colors),
-      singleItem('Fast Speed', 1, colors),
+      singleItem('慢速', 3, colors),
+      singleItem('中速', 2, colors),
+      singleItem('快速', 1, colors),
     ];
   };
 
   return {
-    label: 'Starlight',
+    label: '星光效果',
     submenu: [
       {
-        label: 'Custom color',
+        label: '自定义颜色',
         submenu: menuFor([device.settings.customColor1.rgb.r, device.settings.customColor1.rgb.g, device.settings.customColor1.rgb.b]),
       },
       {
-        label: 'Custom dual color',
+        label: '自定义双色',
         submenu: menuFor([device.settings.customColor1.rgb.r, device.settings.customColor1.rgb.g, device.settings.customColor1.rgb.b, device.settings.customColor2.rgb.r, device.settings.customColor2.rgb.g, device.settings.customColor2.rgb.b]),
       },
       {
-        label: 'Random',
+        label: '随机',
         submenu: menuFor([]),
       },
       {
-        label: 'Red',
+        label: '红色',
         submenu: menuFor([0xff, 0, 0]),
       },
       {
-        label: 'Green',
+        label: '绿色',
         submenu: menuFor([0, 0xff, 0]),
       },
       {
-        label: 'Blue',
+        label: '蓝色',
         submenu: menuFor([0, 0, 0xff]),
       },
       {
-        label: 'Purple',
+        label: '紫色',
         submenu: menuFor([0x80, 0, 0x80]),
       },
       {
-        label: 'Aqua',
+        label: '水色',
         submenu: menuFor([0, 0xff, 0xff]),
       },
       {
-        label: 'Orange',
+        label: '橙色',
         submenu: menuFor([0xff, 0x45, 0]),
       },
-
       {
-        label: 'Red and Green',
+        label: '红绿双色',
         submenu: menuFor([0xff, 0, 0, 0, 0xff, 0]),
       },
       {
-        label: 'Red and Blue',
+        label: '红蓝双色',
         submenu: menuFor([0xff, 0, 0, 0, 0, 0xff]),
       },
       {
-        label: 'Blue and Green',
+        label: '蓝绿双色',
         submenu: menuFor([0, 0, 0xff, 0, 0xff, 0]),
       },
     ],
@@ -352,15 +346,15 @@ function getFeatureStatic(application, device, feature) {
   };
 
   const subMenu = [
-    singleItem('Custom color', [device.settings.customColor1.rgb.r, device.settings.customColor1.rgb.g, device.settings.customColor1.rgb.b]),
-    feature.hasAllColors() ? singleItem('White', [0xff, 0xff, 0xff]) : null,
-    feature.configuration.enabledRed ? singleItem('Red', [0xff, 0, 0]) : null,
-    feature.configuration.enabledGreen ? singleItem('Green', [0, 0xff, 0]) : null,
-    feature.configuration.enabledBlue ? singleItem('Blue', [0, 0, 0xff]) : null,
+    singleItem('自定义颜色', [device.settings.customColor1.rgb.r, device.settings.customColor1.rgb.g, device.settings.customColor1.rgb.b]),
+    feature.hasAllColors() ? singleItem('白色', [0xff, 0xff, 0xff]) : null,
+    feature.configuration.enabledRed ? singleItem('红色', [0xff, 0, 0]) : null,
+    feature.configuration.enabledGreen ? singleItem('绿色', [0, 0xff, 0]) : null,
+    feature.configuration.enabledBlue ? singleItem('蓝色', [0, 0, 0xff]) : null,
   ];
 
   return {
-    label: 'Static',
+    label: '静态效果',
     submenu: subMenu.filter(s => s !== null),
   };
 }
@@ -377,27 +371,27 @@ function getFeatureWaveExtended(application, device, feature) {
 
   const menuFor = (direction) => {
     return [
-      singleItem('Turtle Speed', direction + '_turtle'),
-      singleItem('Slowest Speed', direction + '_slowest'),
-      singleItem('Slower Speed', direction + '_slower'),
-      singleItem('Slow Speed', direction + '_slow'),
-      singleItem('Normal Speed', direction + '_default'),
-      singleItem('Fast Speed', direction + '_fast'),
-      singleItem('Faster Speed', direction + '_faster'),
-      singleItem('Fastest Speed', direction + '_fastest'),
-      singleItem('Lightning Speed', direction + '_lightning'),
+      singleItem('龟速', direction + '_turtle'),
+      singleItem('最慢', direction + '_slowest'),
+      singleItem('较慢', direction + '_slower'),
+      singleItem('慢速', direction + '_slow'),
+      singleItem('正常', direction + '_default'),
+      singleItem('快速', direction + '_fast'),
+      singleItem('较快', direction + '_faster'),
+      singleItem('最快', direction + '_fastest'),
+      singleItem('闪电', direction + '_lightning'),
     ];
   };
 
   return {
-    label: 'Wave',
+    label: '波浪效果',
     submenu: [
       {
-        label: 'Left',
+        label: '向左',
         submenu: menuFor('left'),
       },
       {
-        label: 'Right',
+        label: '向右',
         submenu: menuFor('right'),
       },
     ],
@@ -406,16 +400,16 @@ function getFeatureWaveExtended(application, device, feature) {
 
 function getFeatureWaveSimple(application, device, feature) {
   return {
-    label: 'Wave',
+    label: '波浪效果',
     submenu: [
       {
-        label: 'Left',
+        label: '向左',
         click() {
           device.setWaveSimple('left');
         },
       },
       {
-        label: 'Right',
+        label: '向右',
         click() {
           device.setWaveSimple('right');
         },
@@ -425,10 +419,9 @@ function getFeatureWaveSimple(application, device, feature) {
 }
 
 function getFeatureMouseBrightness(application, device, feature) {
-
   const submenu = [
     feature.configuration.enabledMatrix ? {
-      label: 'All (' + device.getBrightnessMatrix() + '%)',
+      label: '全部 (' + device.getBrightnessMatrix() + '%)',
       submenu: [
         {
           label: '0%', click() {
@@ -445,7 +438,7 @@ function getFeatureMouseBrightness(application, device, feature) {
       ],
     } : null,
     feature.configuration.enabledLogo ? {
-      label: 'Logo (' + device.getBrightnessLogo() + '%)',
+      label: '标志 (' + device.getBrightnessLogo() + '%)',
       submenu: [
         {
           label: '0%', click() {
@@ -463,7 +456,7 @@ function getFeatureMouseBrightness(application, device, feature) {
     } : null,
     feature.configuration.enabledScroll ?
       {
-        label: 'Scroll (' + device.getBrightnessScroll() + '%)',
+        label: '滚轮 (' + device.getBrightnessScroll() + '%)',
         submenu: [
           {
             label: '0%', click() {
@@ -481,7 +474,7 @@ function getFeatureMouseBrightness(application, device, feature) {
       } : null,
     feature.configuration.enabledLeft ?
       {
-        label: 'Left (' + device.getBrightnessLeft() + '%)',
+        label: '左 (' + device.getBrightnessLeft() + '%)',
         submenu: [
           {
             label: '0%', click() {
@@ -499,7 +492,7 @@ function getFeatureMouseBrightness(application, device, feature) {
       } : null,
     feature.configuration.enabledRight ?
       {
-        label: 'Right (' + device.getBrightnessRight() + '%)',
+        label: '右 (' + device.getBrightnessRight() + '%)',
         submenu: [
           {
             label: '0%', click() {
@@ -518,7 +511,7 @@ function getFeatureMouseBrightness(application, device, feature) {
   ];
 
   return {
-    label: 'Brightness',
+    label: '亮度',
     submenu: submenu.filter(s => s!= null),
   };
 }
